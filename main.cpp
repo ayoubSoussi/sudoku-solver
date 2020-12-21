@@ -2,6 +2,7 @@
 #include <minisat/core/Solver.h>
 #include <bits/stdc++.h>
 #include <iostream>
+#include <fstream>
 
 #define ROWS       9
 #define COLUMNS    9
@@ -9,6 +10,7 @@
 
 // declare variables
 int board[ROWS][COLUMNS] = {0};
+std::ifstream infile("input.txt");
 
 // Functions declarations
 void read_input_board(int board[ROWS][COLUMNS]);
@@ -84,15 +86,36 @@ int main() {
 
 void read_input_board(int bd[ROWS][COLUMNS]){
 
-    bd[0][3] = 2; bd[0][4] = 6; bd[0][6] = 7; bd[0][8] = 1;
-    bd[1][0] = 6; bd[1][1] = 8; bd[1][4] = 7; bd[1][7] = 9;
-    bd[2][0] = 1; bd[2][1] = 9; bd[2][5] = 4; bd[2][6] = 5;
-    bd[3][0] = 8; bd[3][1] = 2; bd[3][3] = 1; bd[3][7] = 4; 
-    bd[4][2] = 4; bd[4][3] = 6; bd[4][5] = 2; bd[4][6] = 9;
-    bd[5][1] = 5; bd[5][5] = 3; bd[5][7] = 2; bd[5][8] = 8;
-    bd[6][2] = 9; bd[6][3] = 3; bd[6][7] = 7; bd[6][8] = 4;
-    bd[7][1] = 4; bd[7][4] = 5; bd[7][7] = 3; bd[7][8] = 6;
-    bd[8][0] = 7; bd[8][2] = 3; bd[8][4] = 1; bd[8][5] = 8;
+	bd[0][3] = 2; bd[0][4] = 6; bd[0][6] = 7; bd[0][8] = 1;
+   	bd[1][0] = 6; bd[1][1] = 8; bd[1][4] = 7; bd[1][7] = 9;
+    	bd[2][0] = 1; bd[2][1] = 9; bd[2][5] = 4; bd[2][6] = 5;
+    	bd[3][0] = 8; bd[3][1] = 2; bd[3][3] = 1; bd[3][7] = 4; 
+    	bd[4][2] = 4; bd[4][3] = 6; bd[4][5] = 2; bd[4][6] = 9;
+    	bd[5][1] = 5; bd[5][5] = 3; bd[5][7] = 2; bd[5][8] = 8;
+    	bd[6][2] = 9; bd[6][3] = 3; bd[6][7] = 7; bd[6][8] = 4;
+    	bd[7][1] = 4; bd[7][4] = 5; bd[7][7] = 3; bd[7][8] = 6;
+   	bd[8][0] = 7; bd[8][2] = 3; bd[8][4] = 1; bd[8][5] = 8;
+
+    	std::string line;
+	char cc;
+	for (int r = 0; r < ROWS; r++) {
+		if (!std::getline(infile, line)) {
+		    // error
+		}
+
+		std::istringstream iss(line);
+		for (int c = 0; c < COLUMNS; c++) {
+			if (iss.get(cc) && iss.get(cc)) {
+				if (cc >= '1' && cc <= '9') {
+					bd[r][c] = cc - '0';
+					std::clog << bd[r][c] << "\n";
+				}
+			}
+			else {
+				// error
+			}
+    		}
+	}
 }
 
 void add_rule1(Minisat::Solver *solver) {
