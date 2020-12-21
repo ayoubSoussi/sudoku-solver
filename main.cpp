@@ -35,22 +35,20 @@ Minisat::Var toVar(int row, int column, int value) {
 
 
 int main(int argc, char** argv) {
-    using Minisat::mkLit;
-    using Minisat::lbool;
-    using Minisat::toLit;
-    using Minisat::Var;
+	using Minisat::mkLit;
+    	using Minisat::lbool;
+    	using Minisat::toLit;
+    	using Minisat::Var;
+	
+	Minisat::Solver solver;
 
 	// read input filename
-	if (argc > 1) {
-		example_nb = atoi(argv[1]);
-	       	std::clog << example_nb << "\n";
-	}
-    Minisat::Solver solver;
+	if (argc > 1) example_nb = atoi(argv[1]);
 
-    // add variables to the solver    
-    for (int i = 0; i < ROWS*COLUMNS*VALUES; ++i) {
-	static_cast<void>(solver.newVar());	
-    }
+    	// add variables to the solver    
+    	for (int i = 0; i < ROWS*COLUMNS*VALUES; ++i) {
+		static_cast<void>(solver.newVar());	
+    	}
 
 	// Add predefined data in the board
 	add_rule1(&solver);
@@ -72,25 +70,24 @@ int main(int argc, char** argv) {
     	if (sat) {
         	std::clog << "SAT\n"
                   << "Model found:\n";
-	// Get result
-	for (int row = 0; row < ROWS; ++row) {
-        	for (int col = 0; col < COLUMNS; ++col) {
-            		for (int val = 0; val < VALUES; ++val) {
-                		if (solver.modelValue(toVar(row, col, val)).isTrue()) {
-                    			board[row][col] = val + 1;
-                    			break;
-               			 }
-           		 }
-       		 }
-   	}
-       //std::clog << "UL := " << bd[0][0] << '\n';
-       //std::clog << "DR := " << bd[8][8] << '\n';
-       //std::clog << "ML := " << bd[4][0] << '\n';
-       display_sudoku_board(board);
-    } else {
-        std::clog << "UNSAT\n";
-        return 1;
-    }
+		// Get result
+		for (int row = 0; row < ROWS; ++row) {
+        		for (int col = 0; col < COLUMNS; ++col) {
+            			for (int val = 0; val < VALUES; ++val) {
+                			if (solver.modelValue(toVar(row, col, val)).isTrue()) {
+                    				board[row][col] = val + 1;
+                    				break;
+               			 	}
+           		 	}
+       		 	}
+   		}
+
+		// display final board
+       		display_sudoku_board(board);
+    	} else {
+        	std::clog << "UNSAT\n";
+        	return 1;
+    	}
 }
 
 void read_input_board(int bd[ROWS][COLUMNS]){
@@ -107,13 +104,16 @@ void read_input_board(int bd[ROWS][COLUMNS]){
 		if (!(is >> a)) continue;
 		if (a != example_nb) continue;
 
-		std::clog << "found it";
 		break;
 	}
 
 	for (int r = 0; r < ROWS; r++) {
 		if (!std::getline(infile, line)) {
 		    // error
+		    if (r == 0) std::clog << "Error : No example with the number specified\n";
+		    else std::clog << "Error : Example is not complete, missing line(s)\n";
+		    
+		    break;
 		}
 
 		std::istringstream iss(line);
@@ -122,7 +122,8 @@ void read_input_board(int bd[ROWS][COLUMNS]){
 				if (cc >= '1' && cc <= '9') bd[r][c] = cc - '0';
 			}
 			else {
-				// error
+				std::clog << "Error : Columns missing in line " << r+1 << "of example n°" << example_nb << "\n";
+				break;
 			}
     		}
 	}
@@ -193,7 +194,6 @@ void add_rule5(Minisat::Solver *solver) {
     	}
 }
 
-
 void display_sudoku_board(int bd[ROWS][COLUMNS]) {
 	for (int r = 0; r < ROWS; r++) {
 		std::clog << "|";
@@ -212,5 +212,3 @@ void one_true(Minisat::Solver *solv, Minisat::vec<Minisat::Lit> const& literals)
         }
     }
 }
-
-
