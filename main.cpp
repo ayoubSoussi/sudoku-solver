@@ -17,7 +17,7 @@ int example_nb;
 
 
 // Functions declarations
-void read_input_board(int board[ROWS][COLUMNS]);
+bool read_input_board(int board[ROWS][COLUMNS]);
 void display_sudoku_board(int board[ROWS][COLUMNS]);
 void one_true(Minisat::Solver *solver, Minisat::vec<Minisat::Lit> const& literals);
 
@@ -49,6 +49,9 @@ int main(int argc, char** argv) {
     	for (int i = 0; i < ROWS*COLUMNS*VALUES; ++i) {
 		static_cast<void>(solver.newVar());	
     	}
+
+	// Read input board data
+     	if (!read_input_board(board)) return 1;
 
 	// Add predefined data in the board
 	add_rule1(&solver);
@@ -90,7 +93,7 @@ int main(int argc, char** argv) {
     	}
 }
 
-void read_input_board(int bd[ROWS][COLUMNS]){
+bool read_input_board(int bd[ROWS][COLUMNS]){
 	
 	std::ifstream infile("input.txt");
     	std::string line;
@@ -113,7 +116,7 @@ void read_input_board(int bd[ROWS][COLUMNS]){
 		    if (r == 0) std::clog << "Error : No example with the number specified\n";
 		    else std::clog << "Error : Example is not complete, missing line(s)\n";
 		    
-		    break;
+		    return false;
 		}
 
 		std::istringstream iss(line);
@@ -123,14 +126,15 @@ void read_input_board(int bd[ROWS][COLUMNS]){
 			}
 			else {
 				std::clog << "Error : Columns missing in line " << r+1 << "of example n°" << example_nb << "\n";
-				break;
+				return false;
 			}
     		}
 	}
+
+	return true;
 }
 
 void add_rule1(Minisat::Solver *solver) {
-    	read_input_board(board);
 
     	for (int row = 0; row < ROWS; ++row) {
         	for (int col = 0; col < COLUMNS; ++col) {
