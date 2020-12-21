@@ -71,8 +71,8 @@ int main(int argc, char** argv) {
 	// Check for solution and retrieve model if found
     	auto sat = solver.solve();
     	if (sat) {
-        	std::clog << "SAT\n"
-                  << "Model found:\n";
+        	std::clog << "[SUCCESS] The sudoku board has a solution !\n";
+
 		// Get result
 		for (int row = 0; row < ROWS; ++row) {
         		for (int col = 0; col < COLUMNS; ++col) {
@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
 		// display final board
        		display_sudoku_board(board);
     	} else {
-        	std::clog << "UNSAT\n";
+        	std::clog << "[FAILED] The sudoku board doesn't have a solution !\n";
         	return 1;
     	}
 }
