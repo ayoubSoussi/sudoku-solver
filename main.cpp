@@ -7,6 +7,7 @@
 #define COLUMNS    9
 #define VALUES     9
 
+void display_sudoku_board(int bd[ROWS][COLUMNS]);
 
 void exactly_one_true(Minisat::Solver *solv, Minisat::vec<Minisat::Lit> const& literals) {
     solv->addClause(literals);
@@ -124,11 +125,22 @@ int main() {
            		 }
        		 }
    	}
-       std::clog << "UL := " << bd[0][0] << '\n';
-       std::clog << "DR := " << bd[8][8] << '\n';
-       std::clog << "ML := " << bd[4][0] << '\n';
+       //std::clog << "UL := " << bd[0][0] << '\n';
+       //std::clog << "DR := " << bd[8][8] << '\n';
+       //std::clog << "ML := " << bd[4][0] << '\n';
+       display_sudoku_board(bd);
     } else {
         std::clog << "UNSAT\n";
         return 1;
     }
+}
+
+void display_sudoku_board(int bd[ROWS][COLUMNS]) {
+	for (int r = 0; r < ROWS; r++) {
+		std::clog << "|";
+		for (int c = 0; c < COLUMNS; c++) {
+			std::clog << bd[r][c] << "|";
+		}
+		std::clog << "\n";
+	}
 }
