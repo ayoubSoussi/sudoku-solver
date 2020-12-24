@@ -53,6 +53,9 @@ Then you can solve it easily by executing the solver :
 - Respect the format of the ```input.txt``` file provided in the ```example``` directory.
 - The ID of your sudoku board should be unique in the ```input.txt``` file (no IDs duplication), otherwise the solver will end up solving another sudoku board.
 
+## Demo video
+
+[My sudoku-solver on Youtube](https://www.youtube.com/watch?v=GTE29LMTZjA)
 ### References
 - [Solving Sudoku with Boolean Algebra by Abu Sayed Chowdhury and Suraiya Akhter](https://www.researchgate.net/publication/258652094_Solving_Sudoku_using_Boolean_Algebra)
 - [A SAT-based Sudoku Solver by Tjark Weber](https://www.lri.fr/~conchon/PFA/PROJET/A_SAT-based_Sudoku_solver.pdf)
