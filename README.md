@@ -1,4 +1,5 @@
-# sudoku-solver
+# sudoku-solver [![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=shield)](https://circleci.com/gh/circleci/circleci-docs)
+
 A Minisat-based solver for 9*9 sudoku boards.
 
 ### How does it work ?
