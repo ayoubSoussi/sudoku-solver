@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: buildpack-deps:trusty
+      - image: "debian:stretch"
     steps:
       - checkout
       - run:
@@ -17,7 +17,7 @@ jobs:
           command: 'sudo apt purge -y cmake && wget https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4.tar.gz && tar -zxvf cmake-3.13.4.tar.gz'
       - run:
           name: Install CMAKE
-          command: 'cd cmake-3.13.4 && ./bootstrap && make && sudo make install'
+          command: 'sudo apt-get update && sudo apt-get install -y cmake'
       - run:
           name: Install GIT
           command: 'apt-get update && sudo apt-get install -y git'
