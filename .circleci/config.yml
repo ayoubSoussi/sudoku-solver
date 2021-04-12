@@ -13,9 +13,6 @@ jobs:
           name: Installing GCC
           command: 'apt-get update && apt-get install -y gcc g++'
       - run:
-          name: Prepare installation CMAKE
-          command: 'sudo apt purge -y cmake && wget https://github.com/Kitware/CMake/releases/download/v3.13.4/cmake-3.13.4.tar.gz && tar -zxvf cmake-3.13.4.tar.gz'
-      - run:
           name: Install CMAKE
           command: 'sudo apt-get update && sudo apt-get install -y cmake'
       - run:
