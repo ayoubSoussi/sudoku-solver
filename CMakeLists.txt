@@ -6,6 +6,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_package(MiniSat 2.2 REQUIRED)
 
 add_executable(sudoku-solver
-    main.cpp
+    src/main.cpp
 )
+
+add_executable(sudoku-solver-test tests/sudoku-test.cpp)
+
 target_link_libraries(sudoku-solver MiniSat::libminisat)
+target_link_libraries(sudoku-solver-test MiniSat::libminisat)
