@@ -1,5 +1,6 @@
 // main.cpp:
 #include "main.hpp"
+#include "utils.hpp"
 #include <minisat/core/Solver.h>
 #include <bits/stdc++.h>
 #include <iostream>
@@ -7,19 +8,10 @@
 #include <cstring>
 #include <cstdlib>
 
-#define ROWS       9
-#define COLUMNS    9
-#define VALUES     9
 
 // declare variables
 int board[ROWS][COLUMNS] = {0};
 int example_nb;
-
-// Functions definitions
-Minisat::Var toVar(int row, int column, int value) {
-    return row * COLUMNS * VALUES + column * VALUES + value;
-}
-
 
 int main(int argc, char** argv) {
 	using Minisat::mkLit;
